@@ -1,6 +1,7 @@
 const SplashScreen = () => {
     return (
-        <></>
+        <>
+        Sabo app</>
     )
 }
 
