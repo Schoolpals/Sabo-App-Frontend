@@ -139,7 +139,7 @@ export const SignUp = () => {
         <AnimatePresence>
             <motion.div className="  flex-col items-center   w-screen  min-h-[100vh] ronald justify-end items-end pt-[3.6rem]  overflow-hidden"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 1.5 } }}
+                animate={{ opacity: 1, transition: { duration: 1 } }}
                 exit={{ opacity: 0 }}>
                 <div className="w-[88%] mx-auto my-[0vw] text-white  cursor-pointer justify-center font-urbanist" >
                     <div className="flex flex-col gap-[3.5rem] mb-[6.8vw]">
@@ -150,7 +150,7 @@ export const SignUp = () => {
                     </div>
                     <form onSubmit={handleForm} className="flex flex-col gap-[4vw] text-[white] my-[1.5rem]">
                         <div className="">
-                            <input placeholder="First name" onChange={handleonchange} name="firstname" type="text" className=" font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-90" />
+                            <input placeholder="First name" onChange={handleonchange} name="firstname" type="text" className=" font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-80" />
                             {
                                 user?.error.includes("firstname") && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Firstname input must be filled </div>
                             }

@@ -5,6 +5,17 @@ export type valueprops = {
     email: string,
     password: string,
     confirmpassword: string,
+    phonenumber : string,
+    address: string,
+    state: string,
+    city: string,
+    zipcode: string,
+    street: string,
+    dateofbirth:string,
+    income: string,
+    reasonforaccount: string,
+    employmentstatus: string,
+    occupation:string
 }
 type dataprops = {
     formData: valueprops;
@@ -24,6 +35,17 @@ export const ContextApi = ({children} : childrenprops) => {
     password: "",
     lastname: "",
     confirmpassword: "",
+    phonenumber:"",
+    address: "",
+    state:"",
+    city: "",
+    zipcode:"",
+    street:"",
+    dateofbirth: "",
+    income: "",
+    reasonforaccount: "",
+    employmentstatus:"",
+    occupation: ""
  })
  const [error,seterror]  = useState<string[]>([])
   return (

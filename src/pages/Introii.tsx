@@ -12,30 +12,30 @@ export const Introii = () => {
         <AnimatePresence>
             <motion.div className='flex gap-[10vw] flex-col items-center   w-screen  min-h-[100vh] ronald justify-end items-end  overflow-hidden '
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 1.3 } }}
+                animate={{ opacity: 1, transition: { duration: 0.6 } }}
                 exit={{ opacity: 0 }}
             >
                 <div className='relative top-[15vw] z-10'>
                     <motion.img
                         key={image}
                         src={image}
-                        initial={{ y: -100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1, transition: { duration: 1.5 } }}
-                        exit={{ y: 100, opacity: 0 }}
+                        initial={{ y: -50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1, transition: { duration: 0.6 } }}
+                        exit={{ y: 50, opacity: 0 }}
                         className='rounded-lg shadow-blue-inner w-[67vw] h-[80vw]'
                     />
                 </div>
                 <div className='relative top-[5.5vw] left-[3vw]  z-50 pr-[4vw]'>
                     <motion.img src={image2} key={image2}
-                        initial={{ y: 70, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1, transition: { duration: 2, delay: 0.5 } }}
-                        exit={{ y: -70, opacity: 0 }}
+                        initial={{ y: 50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.6 } }}
+                        exit={{ y: -50, opacity: 0 }}
                     />
                 </div>
                 <motion.div className=' gap-[9vw] bg-white text-customBlue radius2 w-[95vw] h-[90vw] rounded-t-[50px]  font-semibold  font-urbanist text-center p-[8vw] text-[5.5vw] flex flex-col relative z-20 shadow-inner-blueinner'
-                    initial={{ x: -300, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1, transition: { duration: 1.5 } }}
-                    exit={{ x: 300, opacity: 0 }}
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1, transition: { duration: 0.6 } }}
+                    exit={{ x: 100, opacity: 0 }}
                 >
                     <div className='flex flex-col justify-center item-center gap-[4.5vw] text-color1 ' >
                         <div className='text-[6.5vw] font-bold '>Sabo app the safest <div className="relative -top-[2.5vw]">and most trusted</div></div>
@@ -44,7 +44,7 @@ export const Introii = () => {
                     <div className='flex flex-col justify-center items-center gap-[15vw]'>
 
                         <div onClick={navigateSignup}> <motion.button className='text-[white] bg-[#0b66ff] text-semibold font-urbanist text-[3vw] px-[24vw] py-[4.7vw] rounded-[15px]'
-                            whileTap={{ scale: 1.15, transition: { duration: 1 } }}
+                            whileTap={{ scale: 1.15, transition: { duration: 0.4 } }}
                         >
                             Create Account</motion.button></div>
                         <div className="flex flex-col-reverse ">

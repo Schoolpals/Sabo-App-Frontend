@@ -6,6 +6,8 @@ type SignInProps = {
 
 const SignIn:React.FC<SignInProps> = () => {
     
-    return <div></div>
+    return <div>
+        
+    </div>
 }
 export default SignIn;

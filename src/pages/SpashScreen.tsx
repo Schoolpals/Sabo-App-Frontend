@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
+import "../Styles/Intro.css"
 import { useNavigate } from "react-router-dom";
 const SplashScreen = () => {
   const [show, setshow] = useState(true)
   const navigate = useNavigate();
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setshow(false)
-      navigate("/intro")
-    }, 4000);
-    return () => {
-      clearInterval(timer)
-    }
+    setTimeout(() => { setshow(false); navigate("/intro") }, 2500) 
   }, [])
 
   return (
@@ -19,10 +14,10 @@ const SplashScreen = () => {
         <img
           src="assets/images/Group 289618.svg"
           alt=""
-          className="animate-pulse-custom"
+          className="fade-in"
         />
       )}
-      <div className="text-[red] bg-white h-[4px] w-[36vw] z-50 animate-pulse-custom"></div>
+      <div className="bg-white h-[4px] w-[36vw] z-50 fade-in" ></div>
     </div>
   )
 }
