@@ -58,6 +58,15 @@
     background-color: #0b66ff;
     border-radius: 10px 0 0 10px; 
 }
+.bars::before {
+    content: "";
+    position: absolute;
+    left: 4rem;
+    width: 40%; 
+    height: 2.3vw;
+    background-color: #0b66ff;
+    border-radius: 10px 0 0 10px; 
+}
 .cont {
     background-color: rgba(4, 4, 21, 0.03);
     color: red;
