@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../Provider/ContextApi";
 import { Remark } from "./Remark";
+import { Footer } from "./Footer";
 let currentOtp: number = 0;
 export const Verification = () => {
   const user = useContext(Context)
@@ -45,11 +46,12 @@ export const Verification = () => {
     navigate(-1)
   }
   return (
-    <motion.div className=" flex  flex-col  text-white  w-[88%]  min-h-[100vh] mx-auto my-[0rem]  pt-[3.5rem]  overflow-hidden"
+    <motion.div className=" flex  flex-col  text-white  w-[88%]  min-h-[100vh] mx-auto my-[0rem]  pt-[2.5rem] justify-between   overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 2 } }}
       exit={{ opacity: 0 }}>
-      <div className="flex flex-col gap-[3.5rem] mb-[6.8vw]">
+    <div className="flex  flex-col">
+    <div className="flex flex-col gap-[3.5rem] mb-[6.8vw]">
         <div onClick={handleGoback}><img src="/assets/images/Arrow - Left.svg" alt="sfaw" /></div>
         <div className="">
           <div className="text-block text-[25px] font-urbanist text-white">Verify it’s you </div>
@@ -89,6 +91,8 @@ export const Verification = () => {
         }
         
       </div>
+    </div>
+      <Footer/>
     </motion.div>
   )
 }

@@ -1,7 +1,4 @@
 import  { createContext, useState,ReactNode } from 'react'
-import { useForm } from 'react-hook-form';
-import { ZodType, z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 export type valueprops = {
     firstname: string,
     lastname: string,
@@ -19,11 +16,14 @@ export type valueprops = {
     reasonforaccount: string,
     employmentstatus: string,
     occupation:string
+  
 }
 type dataprops = {
     formData: valueprops;
+    placeholder: string;
     setformData: React.Dispatch<React.SetStateAction<valueprops>>
     seterror: React.Dispatch<React.SetStateAction<string[]>>
+    setplaceholder: React.Dispatch<React.SetStateAction<string>>
     error: string[];
 }
 
@@ -54,12 +54,13 @@ export const ContextApi = ({children} : childrenprops) => {
     income: "",
     reasonforaccount: "",
     employmentstatus:"",
-    occupation: ""
+    occupation: "",
  })
 
  const [error,seterror]  = useState<string[]>([])
+ const [placeholder,setplaceholder] = useState("")
   return (
-    <Context.Provider value={{formData,setformData,seterror,error}}>
+    <Context.Provider value={{formData,setformData,seterror,error,placeholder,setplaceholder}}>
         {children}
     </Context.Provider>
   )

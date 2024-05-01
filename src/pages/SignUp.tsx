@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react"
 import { PiEyeSlash } from "react-icons/pi";
 import { PiEyeLight } from "react-icons/pi";
 import { Context } from "../Provider/ContextApi";
+import { Footer } from "./Footer";
 
 export const SignUp = () => {
     const navigate = useNavigate()
@@ -44,7 +45,6 @@ export const SignUp = () => {
     }
     const handleForm = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
         let validaterrror = []
         if (!formData?.firstname.trim()) {
             validaterrror.push("firstname")
@@ -137,7 +137,7 @@ export const SignUp = () => {
     }
     return (
         <AnimatePresence>
-            <motion.div className="  flex-col items-center   w-screen  min-h-[100vh] ronald justify-end items-end pt-[3.6rem]  overflow-hidden"
+            <motion.div className="  flex-col items-center  flex  w-screen  min-h-[100vh] ronald justify-between items-end pt-[2.6rem] py-[1rem] overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 1 } }}
                 exit={{ opacity: 0 }}>
@@ -197,10 +197,10 @@ export const SignUp = () => {
                         <div className="flex flex-col text-center items-center justify-center gap-[5.6rem]">
                             <div className="flex flex-row items-center justify-center gap-[3vw] text-[3.6vw] m-[2vw]"> Already have an account? <div className="text-[#3783fd] text-[4vw]" onClick={navigateSignin}>Signin</div>
                             </div>
-                            <div className=" flex flex-col justify-center items-center bg-white h-[4px] w-[36vw] z-50"></div>
                         </div>
                     </form>
                 </div>
+                <Footer/>
             </motion.div>
         </AnimatePresence>
     )

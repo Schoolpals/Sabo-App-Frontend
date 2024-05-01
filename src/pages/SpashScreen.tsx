@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../Styles/Intro.css"
 import { useNavigate } from "react-router-dom";
+import { Footer } from "./Footer";
 const SplashScreen = () => {
   const [show, setshow] = useState(true)
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const SplashScreen = () => {
   }, [])
 
   return (
-    <div className="h-[100vh] text-white relative flex flex-col justify-around  items-center ">
+    <div className="h-[100vh] text-white relative flex flex-col justify-between  items-center py-[1rem] ">
       {show && (
         <img
           src="assets/images/Group 289618.svg"
@@ -17,7 +18,7 @@ const SplashScreen = () => {
           className="fade-in"
         />
       )}
-      <div className="bg-white h-[4px] w-[36vw] z-50 fade-in" ></div>
+     <Footer/>
     </div>
   )
 }

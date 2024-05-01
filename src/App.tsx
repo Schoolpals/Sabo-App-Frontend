@@ -11,6 +11,7 @@ import { Verification } from "./pages/Verification";
 import { Remark } from "./pages/Remark";
 import { Nopage } from "./pages/Nopage";
 import { PersonalInfo } from "./pages/PersonalInfo";
+import { CreatePin } from "./pages/CreatePin";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/rema" element={<Remark show={false} setshow={function (show: boolean): void {
             throw new Error("Function not implemented.");
           } } />} />
+          <Route path="/sign-up/personalinfo/createpin" element={<CreatePin/>}></Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Nopage/>}/>

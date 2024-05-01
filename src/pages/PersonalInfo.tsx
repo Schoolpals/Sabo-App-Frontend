@@ -2,6 +2,7 @@ import { motion } from "framer-motion"
 import React, { ChangeEvent, useContext, useState } from "react"
 import { Personalinfo2 } from "./Personalinfo2"
 import { Context } from "../Provider/ContextApi"
+import { Footer } from "./Footer"
 export const PersonalInfo = () => {
 
     const user = useContext(Context)
@@ -63,12 +64,12 @@ export const PersonalInfo = () => {
         <div>
             {
                 currentpage === 1 ? (
-                    <motion.div className="w-screen min-h-[100vh] text-white py-[1rem] pt-[4rem]"
+                    <motion.div className="w-screen min-h-[100vh] text-white py-[1rem] pt-[4rem] flex flex-col justify-between py-[1rem]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1, transition: { duration: 1.5 } }}
                         exit={{ opacity: 0 }}
                     >
-                        <div className="w-[88%] mx-auto">
+                        <div className="w-[88%] mx-auto my-[3vw]">
                             <div className="text-center flex flex-col relative justify-center items-center pb-[3rem] fade-in-down">
                                 <div className="h-[2.3vw] bar w-[56vw] border-none rounded-[7px] bg-[#7da2ff54] "></div>
                             </div>
@@ -118,10 +119,11 @@ export const PersonalInfo = () => {
                                     <button type="submit" className='flex flex-row  bg-[#0b66ff] w-[100%] h-[13vw]  rounded-[12px] items-center justify-around'>
                                         Next
                                     </button>
-                                    <div className=" flex flex-col justify-center items-center bg-white h-[4px] w-[36vw] z-50 fade-in-up"></div>
+                                    
                                 </div>
                             </form>
                         </div>
+                        <Footer/>
                     </motion.div>
                 ) : (<Personalinfo2 />)
             }
