@@ -6,7 +6,7 @@ type remarkprops = {
 }
 export const Remark = ({ show, setshow }: remarkprops) => {
     const navigate = useNavigate()
-    const navigaetepersonal = ( ) => {
+    const navigaetepersonal = ( ) => { 
         navigate("/sign-up/personalinfo")
     }
     const stopPropagation = (e: { stopPropagation: () => void; }) => {

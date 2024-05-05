@@ -20,18 +20,18 @@ export const Intro = () => {
                             <motion.img
                                 key={image}
                                 src={image}
-                                
+
                                 className='rounded-lg shadow-blue-inner w-[56vw] '
                             />
                         </div>
                         <div className='flex flex-col gap-[2.5rem] fade-in-up'>
                             <div className='relative top-[3.5vw] left-[5vw] z-50 flex flex-col justify-center items-center '>
                                 <motion.img src={image2} key={image2}
-                               
+
                                 />
                             </div>
                             <motion.div className='  gap-[17vw] bg-white text-[#041C50] radius w-[95vw] h-[90vw] rounded-t-[50px] radius font-semibold  font-urbanist text-center p-[8vw] text-[5.5vw] flex flex-col relative z-20 shadow-inner-blueinner'
-                      
+
                             >
                                 <div className='flex flex-col justify-center item-center gap-[5vw] text-color1 ' >
                                     <div className='text-[6.5vw] font-bold '>Sabo app the safest <div className="relative -top-[2.5vw]">and most trusted</div></div>

@@ -4,6 +4,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../Provider/ContextApi";
 import { Footer } from './Footer';
+import { CreatePinModal } from './CreatePinModal';
 let currentOtp: number = 0;
 export const CreatePin = () => {
   const user = useContext(Context)
@@ -11,7 +12,6 @@ export const CreatePin = () => {
   const [otp, setOtp] = useState<string[]>(new Array(4).fill(""));
   const [activeOtp, setactiveOtp] = useState<number>(0)
   const inputRef = useRef<HTMLInputElement>(null)
-  const { formData } = user || {}
   const [show, setshow] = useState(false)
   const handlOnchanege = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -40,45 +40,49 @@ export const CreatePin = () => {
 
 
   return (
-    <div className='h-screen w-screen text-white py-[23vw]  flex flex-col text-center items-center gap-[17vw]'>
+    <div className='min-h-[100vh] w-[88%] mx-auto text-white py-[23vw]  flex flex-col text-center items-center gap-[20vw]'>
       <div className='w-[50%] mx-auto flex flex-col text-center items-center'>
         <div className="h-[2.3vw] w-[26vw] border-none rounded-[7px] bg-[#0b66ff] "></div>
       </div>
       <div className='flex flex-col gap-[2vw]'>
-        <div className='font-urbanist font-medium text-[7.5vw]'>Create your PIN</div>
+        <div className='font-urbanist font-medium text-[5.7vw]'>Create your PIN</div>
         <div>
-          <div className='font-urbanist font-thin text-[4vw] tracking-wider'>Create a four-digit passcode </div>
-          <div className='font-urbanist font-thin text-[4vw] tracking-wider'>to secure your account</div>
+          <div className='font-urbanist font-thin text-[3vw] tracking-wider'>Create a four-digit passcode </div>
+          <div className='font-urbanist font-thin text-[3vw] tracking-wider'>to secure your account</div>
         </div>
       </div>
-      <div className="flex flex-col gap-[5vw] items-center justify-between gap-[100vw]">
-        <div className="flex flex-row gap-[5vw] items-center just ">
+      <div className="flex flex-col  items-center justify-between gap-[90vw]">
+        <div className="flex flex-row gap-[5vw] items-center  ">
           {otp.map((_, index) => {
             return (
-              <div key={index}>
+              <div key={index} >
                 <input
                   ref={index === activeOtp ? inputRef : null}
-                  type="number"
+                  type={inputRef ? "number" : "password"}
                   onChange={handlOnchanege}
                   onKeyDown={(e) => handleOnkey(e, index)}
                   value={otp[index]}
-                  className="w-[18.5px] font-urbanist h-[18.5px] rounded-[19px] h-12 border-[1px] border-[#35377b] rounded bg-transparent active:bg-green-700  outline-none text-center font-semibold text-xl spin-button-none border-gray-400 focus:border-white focus:text-white text-gray-400 transition ease-out"
-                />
-                {index === otp.length ? null : (
-                  <span className="w-2 py-0.5 bg-gray-400" />
-                )}
+                  className={`w-[18.5px] font-urbanist h-[18.5px] rounded-[7px]  border-[1px] border-[#35377b] pin
+                  ${index <= activeOtp ? "bg-[#0B66FF]" : "pin"}
+                  } outline-none text-center font-semibold   focus:border-black   focus:bg-[#0B66FF] text-transparent transition ease-out`}
+                  style={{ caretColor: 'transparent' }}
+                ></input>
               </div>
             );
           })}
         </div>
-        <div className='w-screen mx-auto flex flex-col text-center items-center gap-[7vw]'>
+        <div className='w-screen mx-auto flex flex-col text-center justify-center items-center gap-[7vw]'>
           <motion.button
             whileTap={{ scale: 1.05 }}
-            type="submit" className='flex flex-row  bg-[#0b66ff] w-[93%] h-[14vw] rounded-[12px] items-center justify-around ' onClick={() => setshow(true)}>
+            type="submit" className='flex flex-row bg-[#0b66ff] w-[83%] h-[14vw]   rounded-[12px] items-center justify-around ' onClick={() => setshow(true)}>
             Verify
           </motion.button>
+          {
+            show && <div><CreatePinModal setshow={setshow}/></div>
+          }
           <Footer />
-        </div></div>
+        </div>
+      </div>
     </div>
   )
 }

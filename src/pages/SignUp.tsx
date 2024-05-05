@@ -3,8 +3,10 @@ import { AnimatePresence, motion } from "framer-motion"
 import React, { useContext, useState } from "react"
 import { PiEyeSlash } from "react-icons/pi";
 import { PiEyeLight } from "react-icons/pi";
-import { Context } from "../Provider/ContextApi";
+import { Context, valueprops } from "../Provider/ContextApi";
 import { Footer } from "./Footer";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 
 export const SignUp = () => {
     const navigate = useNavigate()
@@ -23,107 +25,17 @@ export const SignUp = () => {
     const handleclicks = () => {
         setshows(!shows);
     };
-
-    const isNonWhiteSpace = /^\S*$/;
-    const isContainsUppercase = /^(?=.*[A-Z]).*$/;
-    const isContainsLowercase = /^(?=.*[a-z]).*$/;
-    const isContainsNumber = /^(?=.*[0-9]).*$/;
-    const isContainsSymbol = /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/;
-    const isValidLength = /^.{10,16}$/;
-
     const user = useContext(Context)
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<valueprops>()
+    const onSubmit: SubmitHandler<valueprops> = (data) => {
+        try {
+            console.log(data)
 
-    const { formData } = user || {}
-    const handleonchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        if (user) {
-            user?.setformData((prevstate) => ({
-                ...prevstate,
-                [name]: value.toString()
-            }))
-        }
-    }
-    const handleForm = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        let validaterrror = []
-        if (!formData?.firstname.trim()) {
-            validaterrror.push("firstname")
-        }
-        if (!formData?.lastname.trim()) {
-            validaterrror.push("lastname")
-        }
-        if (!formData?.email.trim()) {
-            validaterrror.push("email")
-        }
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            validaterrror.push("invalid email")
-        }
-        if (!formData?.password.trim()) {
-            validaterrror.push("password")
-        }
-        else if (!isNonWhiteSpace.test(formData.password)) {
-            validaterrror.push("whitespaces")
-        }
-        else if (!isContainsUppercase.test(formData.password)) {
-            validaterrror.push("uppercase")
-        }
-        else if (!isContainsLowercase.test(formData.password)) {
-            validaterrror.push("lowercase")
-        }
-        else if (!isContainsSymbol.test(formData.password)) {
-            validaterrror.push("symbol")
-        }
-        else if (!isContainsNumber.test(formData.password)) {
-            validaterrror.push("number")
-        }
-        else if (!isValidLength.test(formData.password)) {
-            validaterrror.push("length")
-        }
-        if (!formData?.confirmpassword.trim()) {
-            validaterrror.push("confirm")
-        }
-        else if (formData.password.trim() !== formData.confirmpassword.trim()) {
-            validaterrror.push("notconfirm")
-        }
-        user?.seterror(validaterrror)
-
-        if (validaterrror.length === 0) {
-            alert("signup successful")
             navigate("verification")
-        }
-    }
-    let emailmessage: React.ReactNode;
-    {
-        if (user?.error.includes("email")) {
-            emailmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]"> Email input must be filled </div>
-        }
-        else if (user?.error.includes("invalid email")) {
-            emailmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Email is not complete</div>
-        }
-    }
 
-    let passwordmessage: React.ReactNode;
-    {
-        if (user?.error.includes("password")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password input must be filled </div>
         }
-        else if (user?.error.includes("whitespaces")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must not contain Whitespaces </div>
-        }
-        else if (user?.error.includes("uppercase")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must have at least one Uppercase Character </div>
-        }
-        else if (user?.error.includes("lowercase")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must have at least one Lowercase Character.</div>
-        }
-        else if (user?.error.includes("number")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must contain at least one Digit. </div>
-        }
-        else if (user?.error.includes("length")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must be 10-16 Characters Long</div>
-        }
-        else if (user?.error.includes("symbol")) {
-            passwordmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must contain at least one Special Symbol</div>
+        catch (error) {
+            console.log(error)
         }
     }
     let confirmessage: React.ReactNode;
@@ -148,41 +60,101 @@ export const SignUp = () => {
                             <div className="text-block text-[25px] text-white">Create your Sabo <div className="relative -top-[1.5vw]">Account</div></div>
                         </div>
                     </div>
-                    <form onSubmit={handleForm} className="flex flex-col gap-[4vw] text-[white] my-[1.5rem]">
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[4vw] text-[white] my-[1.5rem]">
                         <div className="">
-                            <input placeholder="First name" onChange={handleonchange} name="firstname" type="text" className=" font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-80" />
+                            <input placeholder="First name"
+                                {...register("firstname", {
+                                    required: "Firstname input is required",
+                                    validate: (value) => {
+                                        if (value.length < 3) {
+                                            return "Firstname must be greater than 3"
+                                        }
+                                    }
+
+                                })}
+                                type="text" className="font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-80" />
                             {
-                                user?.error.includes("firstname") && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Firstname input must be filled </div>
+                                errors.firstname && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.firstname.message}</div>
                             }
                         </div>
                         <div className="">
-                            <input placeholder="Last name" onChange={handleonchange} name="lastname" type="text" className=" font-urbanist  outline-none w-[100%]  p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942]  placeholder-white placeholder-opacity-90" />
+                            <input placeholder="Last name"
+                                {...register("lastname", {
+                                    required: "Lastname is required",
+                                    validate: (value) => {
+                                        if (value.length < 3) {
+                                            return "Lastname must be greater than 3"
+                                        }
+                                    }
+                                })}
+                                type="text" className=" font-urbanist  outline-none w-[100%]  p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942]  placeholder-white placeholder-opacity-90" />
                             {
-                                user?.error.includes("lastname") && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]"> Lastname input must be filled </div>
+                                errors.lastname && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]"> {errors.lastname.message}</div>
                             }
                         </div>
                         <div className="">
-                            <input placeholder="Email address" onChange={handleonchange} name="email" className=" font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-90" />
-                            {emailmessage}
+                            <input placeholder="Email address"
+                                {...register("email", {
+                                    required: "Email is required",
+                                    validate: (value) => {
+                                        if (!/\S+@\S+\.\S+/.test(value)) {
+                                            return "Email is not complete"
+                                        }
+                                    }
+                                })}
+                                className=" font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-90" />
+                            <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] ease-in-out m-[1vw]">{errors.email?.message}</div>
                         </div>
                         <div>
                             <div className="flex flex-row  bg-[#0a1942] w-[100%] h-[14vw] rounded-[12px] items-center justify-around">
-                                <input placeholder="Password" onChange={handleonchange} name="password" type={show ? "text" : "password"} className="font-thin w-[75%] placeholder-white placeholder-opacity-90 border-none outline-none bg-transparent" />
+                                <input placeholder="Password"
+                                    {...register("password", {
+                                        required: true,
+                                        pattern: {
+                                            value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/,
+                                            message: "Email is not valid."
+                                        },
+                                        minLength: 8,
+                                        maxLength: 22
+                                    })} type={show ? "text" : "password"} className="font-thin w-[75%] placeholder-white placeholder-opacity-90 border-none outline-none bg-transparent" />
                                 <div>
                                     {show ? (<PiEyeLight onClick={handleclick} style={{ fontSize: "6vw" }} />) : (<PiEyeSlash onClick={handleclick} style={{ fontSize: "6vw" }} />)}
                                 </div>
 
                             </div>
-                            {passwordmessage}
+                            {
+                                errors.password?.type === "pattern" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol.</div>
+                            }
+                            {
+                                errors.password?.type === "minLength" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password should be at-least 8 characters</div>
+
+                            }
+                            {
+                                errors.password?.type === "maxLength" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must be at-most 22 Characters</div>
+                            }
+                            {
+                                errors.password?.type === "required" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password is required</div>
+                            }
                         </div>
                         <div>
                             <div className="flex flex-row  bg-[#0a1942] w-[100%] h-[14vw] rounded-[12px] items-center justify-around">
-                                <input name="confirmpassword" onChange={handleonchange} type={shows ? "text" : "password"} placeholder="Confirm Password" className="font-thin w-[75%] placeholder-white placeholder-opacity-90 border-none outline-none bg-transparent" />
+                                <input
+                                    {...register("confirmpassword", {
+                                        required: "Confirm your password",
+                                        validate: (val: string) => {
+                                            if (watch('password') != val) {
+                                                return "Your passwords do no match";
+                                            }
+                                        },
+                                    })}
+                                    type={shows ? "text" : "password"} placeholder="Confirm Password" className="font-thin w-[75%] placeholder-white placeholder-opacity-90 border-none outline-none bg-transparent" />
                                 <div>
                                     {shows ? (<PiEyeLight onClick={handleclicks} style={{ fontSize: "6vw" }} />) : (<PiEyeSlash onClick={handleclicks} style={{ fontSize: "6vw" }} />)}
                                 </div>
                             </div>
-                            {confirmessage}
+                            {
+                                errors.confirmpassword && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.confirmpassword.message}</div>
+                            }
                         </div>
                         <div className="flex flex-row gap-[3vw] form-check items-center justify-center py-[3vw]">
                             <div className="checkbox-container">
@@ -200,8 +172,10 @@ export const SignUp = () => {
                         </div>
                     </form>
                 </div>
-                <Footer/>
+                <Footer />
             </motion.div>
         </AnimatePresence>
     )
 }
+
+
