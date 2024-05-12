@@ -26,7 +26,6 @@ export const CreatePin = () => {
       setactiveOtp(currentOtp + 1)
     }
   }
-
   const handleOnkey = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     const { key } = e
     currentOtp = index

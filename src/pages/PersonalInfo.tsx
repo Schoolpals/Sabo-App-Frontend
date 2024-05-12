@@ -4,9 +4,34 @@ import { Personalinfo2 } from "./Personalinfo2"
 import { Context, valueprops } from "../Provider/ContextApi"
 import { Footer } from "./Footer"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useQuery } from "react-query"
 
 export const PersonalInfo = () => {
-
+     const handlepersoanl = async (data:valueprops) => {
+        try {
+            const res = await fetch("http://localhost:3000/users/personal-info",{
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            const result = res.json()
+            console.log(result)
+            if(!res.ok) {
+                throw new Error("error parsing json")
+            }
+            setcurrentpage(currentpage + 1)
+        }
+        catch(error){
+            console.log("error")
+        }
+        
+    }
+    const {data}  = useQuery({
+        queryKey:['personalinfo'],
+        queryFn: () => handlepersoanl
+    })
     const user = useContext(Context)
     const [currentpage, setcurrentpage] = useState(1)
     const handleonchange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,15 +44,8 @@ export const PersonalInfo = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<valueprops>()
     const onSubmit: SubmitHandler<valueprops> = (data) => {
         console.log(data)
-
-            setcurrentpage(currentpage + 1)
-
-
+        handlepersoanl(data)
     }
-
-
-
-  
     return (
         <div>
             {

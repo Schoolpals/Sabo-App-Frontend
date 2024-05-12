@@ -12,7 +12,6 @@ import { Remark } from "./pages/Remark";
 import { Nopage } from "./pages/Nopage";
 import { PersonalInfo } from "./pages/PersonalInfo";
 import { CreatePin } from "./pages/CreatePin";
-
 function App() {
   return (
     <ContextApi>

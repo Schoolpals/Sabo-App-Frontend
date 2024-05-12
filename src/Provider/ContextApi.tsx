@@ -1,11 +1,11 @@
 import  { Dayjs } from 'dayjs';
 import { createContext, useState, ReactNode } from 'react'
 export type valueprops = {
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     email: string,
     password: string,
-    confirmpassword: string,
+    repeat_password: string,
     phonenumber: string,
     address: string,
     state: string,
@@ -41,11 +41,11 @@ export const ContextApi = ({ children }: childrenprops) => {
     //   })
     // const {register,handleSubmit} = useForm<valueprops>({resolver:zodResolver(schema)})
     const [formData, setformData] = useState<valueprops>({
-        firstname: "",
+        firstName: "",
         email: "",
         password: "",
-        lastname: "",
-        confirmpassword: "",
+        lastName: "",
+        repeat_password: "",
         phonenumber: "",
         address: "",
         state: "",

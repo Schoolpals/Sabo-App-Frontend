@@ -1,14 +1,62 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { PiEyeSlash } from "react-icons/pi";
 import { PiEyeLight } from "react-icons/pi";
 import { Context, valueprops } from "../Provider/ContextApi";
 import { Footer } from "./Footer";
 import { SubmitHandler, useForm } from "react-hook-form";
-
+import { useMutation, useQuery } from "react-query";
+import { Loading } from "./Loading";
 
 export const SignUp = () => {
+    const user = useContext(Context)
+    const locations = useLocation()
+    const [mail, setmail] = useState("")
+    const [loadng, setloadng] = useState(false)
+    const { formData } = user || {}
+    useEffect(() => {
+        console.log("this is location", locations)
+    }, [locations])
+    // const { firstName, lastName, email, password, repeat_password } = formData || {}
+
+    const handlesignup = async (data: valueprops) => {
+        setloadng(true)
+        try {
+            const res = await fetch("https://sabo-app.onrender.com/auth/sign-up", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(data)
+            })
+            const result = await res.json()
+            console.log(result.email)
+            setmail(result.email)
+            console.log(result)
+            if (!res.ok) {
+                throw new Error("error parsing json")
+            }
+            navigate("verification",{state:{data}});
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+    const { data,isFetching } = useQuery({
+        queryKey: ["signup"],
+        queryFn: () => handlesignup
+    })
+
+    if(isFetching){
+        <Loading/>
+    }
+    const mutation = useMutation({
+        mutationFn: (data: valueprops) => handlesignup(data),
+        onSuccess: () => {
+            navigate("verification");
+        },
+    });
     const navigate = useNavigate()
     const handleGoback = () => {
         navigate(-1)
@@ -25,18 +73,11 @@ export const SignUp = () => {
     const handleclicks = () => {
         setshows(!shows);
     };
-    const user = useContext(Context)
+
     const { register, handleSubmit, formState: { errors }, watch } = useForm<valueprops>()
     const onSubmit: SubmitHandler<valueprops> = (data) => {
-        try {
-            console.log(data)
-
-            navigate("verification")
-
-        }
-        catch (error) {
-            console.log(error)
-        }
+        console.log(data)
+        handlesignup(data)
     }
     let confirmessage: React.ReactNode;
     {
@@ -49,7 +90,9 @@ export const SignUp = () => {
     }
     return (
         <AnimatePresence>
-            <motion.div className="  flex-col items-center  flex  w-screen  min-h-[100vh] ronald justify-between items-end pt-[2.6rem] py-[1rem] overflow-hidden"
+            {
+                loadng ? (
+                    <motion.div className="  flex-col items-center  flex  w-screen  min-h-[100vh] ronald justify-between items-end pt-[2.6rem] py-[1rem] overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 1 } }}
                 exit={{ opacity: 0 }}>
@@ -63,7 +106,7 @@ export const SignUp = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[4vw] text-[white] my-[1.5rem]">
                         <div className="">
                             <input placeholder="First name"
-                                {...register("firstname", {
+                                {...register("firstName", {
                                     required: "Firstname input is required",
                                     validate: (value) => {
                                         if (value.length < 3) {
@@ -74,12 +117,12 @@ export const SignUp = () => {
                                 })}
                                 type="text" className="font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-80" />
                             {
-                                errors.firstname && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.firstname.message}</div>
+                                errors.firstName && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.firstName.message}</div>
                             }
                         </div>
                         <div className="">
                             <input placeholder="Last name"
-                                {...register("lastname", {
+                                {...register("lastName", {
                                     required: "Lastname is required",
                                     validate: (value) => {
                                         if (value.length < 3) {
@@ -89,7 +132,7 @@ export const SignUp = () => {
                                 })}
                                 type="text" className=" font-urbanist  outline-none w-[100%]  p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942]  placeholder-white placeholder-opacity-90" />
                             {
-                                errors.lastname && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]"> {errors.lastname.message}</div>
+                                errors.lastName && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]"> {errors.lastName.message}</div>
                             }
                         </div>
                         <div className="">
@@ -139,7 +182,7 @@ export const SignUp = () => {
                         <div>
                             <div className="flex flex-row  bg-[#0a1942] w-[100%] h-[14vw] rounded-[12px] items-center justify-around">
                                 <input
-                                    {...register("confirmpassword", {
+                                    {...register("repeat_password", {
                                         required: "Confirm your password",
                                         validate: (val: string) => {
                                             if (watch('password') != val) {
@@ -153,7 +196,7 @@ export const SignUp = () => {
                                 </div>
                             </div>
                             {
-                                errors.confirmpassword && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.confirmpassword.message}</div>
+                                errors.repeat_password && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.repeat_password.message}</div>
                             }
                         </div>
                         <div className="flex flex-row gap-[3vw] form-check items-center justify-center py-[3vw]">
@@ -174,6 +217,8 @@ export const SignUp = () => {
                 </div>
                 <Footer />
             </motion.div>
+                ):(<Loading/>)
+            }
         </AnimatePresence>
     )
 }
