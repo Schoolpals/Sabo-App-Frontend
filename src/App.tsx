@@ -12,14 +12,16 @@ function App() {
   return (
     <BrowserRouter>
       <NotFound />
-      <Routes>
-        <Route path="/" element={<SplashScreen />} />
-        <Route path="/intro" element={<Intro />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+      <main className="md:hidden">
+        <Routes>
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="/intro" element={<Intro />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </main>
     </BrowserRouter>
   )
 }
