@@ -12,14 +12,15 @@ import { Remark } from "./pages/Remark";
 import { Nopage } from "./pages/Nopage";
 import { PersonalInfo } from "./pages/PersonalInfo";
 import { CreatePin } from "./pages/CreatePin";
+import NotFound from "./pages/NotFound";
+
 function App() {
   return (
-    <ContextApi>
-      <BrowserRouter>
+        <ContextApi>
+    <BrowserRouter>
+      <NotFound />
+        <main className="md:hidden">
         <Routes>
-          <Route path="/" element={<SplashScreen />} />
-          <Route path="/intro" element={<Intro />} />
-          <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up">
             <Route index element={<SignUp/>}></Route>
             <Route path="verification" element={<Verification/>}/>
@@ -33,8 +34,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Nopage/>}/>
         </Routes>
+            </main>
       </BrowserRouter>
     </ContextApi>
+
   )
 }
 
