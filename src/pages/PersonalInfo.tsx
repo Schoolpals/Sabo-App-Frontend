@@ -1,10 +1,9 @@
 import { motion } from "framer-motion"
-import React, { ChangeEvent, useContext, useState } from "react"
-import { Personalinfo2 } from "./Personalinfo2"
-import { Context, valueprops } from "../Provider/ContextApi"
-import { Footer } from "./Footer"
+import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useQuery } from "react-query"
+import { valueprops } from "../Provider/ContextApi"
+import { Footer } from "./Footer"
+import { Personalinfo2 } from "./Personalinfo2"
 
 export const PersonalInfo = () => {
      const handlepersoanl = async (data:valueprops) => {
@@ -28,19 +27,20 @@ export const PersonalInfo = () => {
         }
         
     }
-    const {data}  = useQuery({
-        queryKey:['personalinfo'],
-        queryFn: () => handlepersoanl
-    })
-    const user = useContext(Context)
+    // const {data}  = useQuery({
+    //     queryKey:['personalinfo'],
+    //     queryFn: () => handlepersoanl
+    // })
+    console
+    // const user = useContext(Context)
     const [currentpage, setcurrentpage] = useState(1)
-    const handleonchange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        user?.setformData({
-            ...user.formData,
-            [name]: value
-        })
-    }
+    // const handleonchange = (e: ChangeEvent<HTMLInputElement>) => {
+    //     const { name, value } = e.target;
+    //     user?.setformData({
+    //         ...user.formData,
+    //         [name]: value
+    //     })
+    // }
     const { register, handleSubmit, formState: { errors } } = useForm<valueprops>()
     const onSubmit: SubmitHandler<valueprops> = (data) => {
         console.log(data)

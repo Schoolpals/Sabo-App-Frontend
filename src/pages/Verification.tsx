@@ -1,17 +1,16 @@
 import { motion } from "framer-motion";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Context } from "../Provider/ContextApi";
-import { Remark } from "./Remark";
 import { Footer } from "./Footer";
+import { Remark } from "./Remark";
 let currentOtp: number = 0;
 export const Verification = () => {
-  const user = useContext(Context)
+  // const user = useContext(Context)
   const navigate = useNavigate()
   const [otp, setOtp] = useState<string[]>(new Array(4).fill(""));
   const [activeOtp, setactiveOtp] = useState<number>(0)
   const inputRef = useRef<HTMLInputElement>(null)
-  const { formData } = user || {}
+  // const { formData } = user || {}
   const [show, setshow] = useState(false)
   const [mail, setmail] = useState("")
   const locations = useLocation()

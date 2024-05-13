@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Context } from '../Provider/ContextApi'
 type remarkprops = {
   show: boolean,
   setshow: (show: boolean) => void
 }
-export const Emplymodal = ({ show, setshow }: remarkprops) => {
+export const Emplymodal = ({ setshow }: remarkprops) => {
   const user = useContext(Context)
   const handleEmploymentStatusClick = (status: string) => {
     user?.setplaceholder(status);

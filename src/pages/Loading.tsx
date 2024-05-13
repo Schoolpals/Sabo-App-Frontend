@@ -1,5 +1,4 @@
-import React from 'react'
-import { PacmanLoader, SyncLoader } from 'react-spinners'
+import { SyncLoader } from 'react-spinners'
 
 export const Loading = () => {
   return (

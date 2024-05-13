@@ -1,14 +1,14 @@
 import React from 'react'
 import { motion } from "framer-motion";
-import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Context } from "../Provider/ContextApi";
+import {  useEffect, useRef, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { Context } from "../Provider/ContextApi";
 import { Footer } from './Footer';
 import { CreatePinModal } from './CreatePinModal';
 let currentOtp: number = 0;
 export const CreatePin = () => {
-  const user = useContext(Context)
-  const navigate = useNavigate()
+  // const user = useContext(Context)
+  // const navigate = useNavigate()
   const [otp, setOtp] = useState<string[]>(new Array(4).fill(""));
   const [activeOtp, setactiveOtp] = useState<number>(0)
   const inputRef = useRef<HTMLInputElement>(null)
