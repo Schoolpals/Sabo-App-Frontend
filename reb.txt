@@ -1,0 +1,4 @@
+w-12 h-12 border-2 rounded bg-transparent
+        outline-none text-center font-semibold text-xl 
+        border-gray-400 focus:border-gray-700 focus:text-gray-700
+        text-gray-400 transition spin-button-non
