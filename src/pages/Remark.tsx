@@ -1,10 +1,10 @@
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 type remarkprops = {
-    show: boolean,
+    show?: boolean,
     setshow: (show: boolean) => void
 }
-export const Remark = ({ show, setshow }: remarkprops) => {
+export const Remark = ({  setshow }: remarkprops) => {
     const navigate = useNavigate()
     const navigaetepersonal = ( ) => { 
         navigate("/sign-up/personalinfo")

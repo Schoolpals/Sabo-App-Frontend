@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useState } from 'react'
 import "../Styles/Intro.css"
-import { AnimatePresence } from 'framer-motion'
-import { motion } from "framer-motion"
 import { Introii } from './Introii'
 export const Intro = () => {
     const image = "assets/images/Group 34536.svg"

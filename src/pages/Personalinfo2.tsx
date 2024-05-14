@@ -1,19 +1,16 @@
-import { color, motion } from "framer-motion";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
-import { Context } from "../Provider/ContextApi";
 import "react-datepicker/dist/react-datepicker.css";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
-import "react-datepicker/dist/react-datepicker.css";
-import { Emplymodal } from "./Emplymodal";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../Provider/ContextApi";
+import { Emplymodal } from "./Emplymodal";
 import { Footer } from "./Footer";
-import { useForm } from 'react-hook-form';
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
-import { Dayjs } from "dayjs";
 // registerLocale('es', es)
 
 // interface IStateProps {
@@ -37,7 +34,7 @@ export const Personalinfo2 = () => {
     }
   };
   const [show, setshow] = useState(false)
-  const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  // const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { formData } = user || {};
