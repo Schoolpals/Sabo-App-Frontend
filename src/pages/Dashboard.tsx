@@ -48,8 +48,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="mt-[32px] flex items-center gap-4 relative">
-        <div className="w-[319px] h-[167px] rounded-[15px] bg-[#00348C80] flex flex-col items-center justify-start p-[22px] relative">
+      <div className="mt-[32px] flex items-center gap-4 relative w-full justify-center">
+        <div className="w-[90%] sm:w-[319px] h-[167px] rounded-[15px] bg-[#00348C80] flex flex-col items-center justify-start p-[22px] relative">
           <img src={cardLine} className="absolute w-full top-0" alt="" />
 
           <div className="w-full flex justify-between items-center">
@@ -140,7 +140,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="w-[380px] h-[107px] border rounded-[15px] border-[#BAD4FF47] flex items-center justify-center relative mt-[47px]">
+      <div className="w-full sm:w-[380px] h-[107px] border rounded-[15px] border-[#BAD4FF47] flex items-center justify-center relative mt-[47px]">
         <div className="absolute -top-[12px] left-[14px] w-[108px] h-[25px] bg-[#030F3A] flex items-center justify-center">
           <h4 className="leading-[140%] text-[12px] font-bold">
             Quick Actions ⚡️
@@ -175,7 +175,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="w-[380px] mt-10">
+      <div className="w-full sm:w-[380px] mt-10">
         <div className="flex justify-between w-full">
           <h3 className="text-[#5A6D9C] text-[14px] font-bold leading-[140%]">
             Today, Oct 25
@@ -256,7 +256,7 @@ const Dashboard = () => {
       </div>
 
       <div className="w-full h-[105px] border-t rounded-t-[20px] fixed -bottom-6 border-[#BAD4FF47] flex bg-[#030F3A]">
-        <div className="w-full flex gap-[60px] items-start pt-[22px] justify-between px-[45px]">
+        <div className="w-full flex gap-[6 0px] items-start pt-[22px] justify-between px-[45px]">
           <div className="flex flex-col gap-2 max-w-max items-center cursor-pointer">
             <img src={home} alt="" className="w-5 h-5" />
             <h4 className="text-[#E1E3FF] text-[8px] font-semibold leading-[12px]">
