@@ -13,7 +13,7 @@ export const PersonalInfo = () => {
     const [show, setshow] = useState(false);
     const [currentpage, setcurrentpage] = useState(1);
     const user = useContext(Context);
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjk5LCJpYXQiOjE3MTYwODEyNjYsImV4cCI6MTcxNjA5NTY2Nn0.lnWkTzWj6qCg-hZAKJrkiL_bSJValJ9isrn1gMx3bIA";
+    const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMywiaWF0IjoxNzE2MjE0NDkzLCJleHAiOjE3MTYyMjg4OTN9.PeIX-0T7Se88YKAXRLsD8DO50_mn_-YFwRkcgr27AqA";
     const { formData } = user || {}
     const handlepersoanl = async (data: valueprops) => {
         try {
@@ -34,11 +34,9 @@ export const PersonalInfo = () => {
             console.log("error");
         }
     };
-
     const handleclick = () => {
         setshow(!show);
     };
-
     const { register, handleSubmit, control, watch, setValue, formState: { errors } } = useForm<valueprops>();
     useEffect(() => {
         setValue("employmentstatus", user?.placeholder || "", { shouldValidate: true });
@@ -49,17 +47,17 @@ export const PersonalInfo = () => {
         setcurrentpage(currentpage + 1);
         handlepersoanl({
             ...data,
-            phonenumber: data.phonenumber || "",
+            phoneNumber: data.phoneNumber || "",
             address: data.address || "",
             state: data.state || "",
             city: data.city || "",
-            zipcode: data.zipcode || "",
+            zipCode: data.zipCode || "",
             street: data.street || "",
             income: data.income || "",
             reason: data.reason || "",
             occupation: data.occupation,
             employmentstatus: data.employmentstatus || "",
-            dateofbirth: data.dateofbirth || "",
+            dateOfBirth: data.dateOfBirth || "",
         });
     };
     return (
@@ -83,14 +81,14 @@ export const PersonalInfo = () => {
                                 </div>
                                 <div className="flex flex-col gap-[5.3vw] relative">
                                     <div>
-                                        <input type="number" {...register("phonenumber", {
+                                        <input type="number" {...register("phoneNumber", {
                                             required: "Phonenumber is required",
                                             minLength: 11,
                                             maxLength: 11
                                         })} placeholder="Phone number" className='w-[100%] font-normal placeholder-[ #cccccc] placeholder-opacity-90 outline-none border-none px-[4vw] py-[4.2vw] bg-[#0a1942] rounded-[12px] font-urbanist' />
-                                        {errors.phonenumber?.type === "required" && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Phonenumber is required</div>)}
-                                        {errors.phonenumber?.type === "minLength" && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Phonenumber must be at least 11 digits</div>)}
-                                        {errors.phonenumber?.type === "maxLength" && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Phonenumber must be at most 11 digits</div>)}
+                                        {errors.phoneNumber?.type === "required" && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Phonenumber is required</div>)}
+                                        {errors.phoneNumber?.type === "minLength" && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Phonenumber must be at least 11 digits</div>)}
+                                        {errors.phoneNumber?.type === "maxLength" && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Phonenumber must be at most 11 digits</div>)}
                                     </div>
                                     <div>
                                         <input type="text" {...register("address", {
@@ -111,10 +109,10 @@ export const PersonalInfo = () => {
                                         {errors.city && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.city.message}</div>)}
                                     </div>
                                     <div>
-                                        <input type="number" {...register("zipcode", {
+                                        <input type="number" {...register("zipCode", {
                                             required: "Zipcode is required"
                                         })} placeholder="Zip code" className='w-[100%] font-normal placeholder-[#cccccc] placeholder-opacity-90 outline-none border-none px-[5vw] py-[4vw] bg-[#0a1942] rounded-[12px] font-urbanist' />
-                                        {errors.zipcode && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.zipcode.message}</div>)}
+                                        {errors.zipCode && (<div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.zipCode.message}</div>)}
                                     </div>
                                     <div>
                                         <input type="text" {...register("street", {
@@ -158,7 +156,7 @@ export const PersonalInfo = () => {
                                                 // name="dateofbirth"
                                                 defaultValue={"dateofbirth" || undefined}
                                                 // rules={}
-                                                {...register("dateofbirth", {
+                                                {...register("dateOfBirth", {
                                                     required: "Date of Birth is required",
                                                 })}
 
@@ -180,7 +178,7 @@ export const PersonalInfo = () => {
                                                 }}
                                             />
                                             {
-                                                errors.dateofbirth && (<div className="font-urbanist  absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.dateofbirth.message}</div>)
+                                                errors.dateOfBirth && (<div className="font-urbanist  absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.dateOfBirth.message}</div>)
                                             }
                                         </div>
                                         <div>

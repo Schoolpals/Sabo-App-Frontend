@@ -21,7 +21,7 @@ export const SignUp = () => {
     const user = useContext(Context)
     const locations = useLocation()
     const [mail, setmail] = useState("")
-    const [loadng, setloadng] = useState(true)
+    const [loadng, setloadng] = useState(false)
     const { formData } = user || {}
     const [error, seterror] = useState("")
     useEffect(() => {
@@ -52,6 +52,9 @@ export const SignUp = () => {
             navigate("verification",{state:{data}});
         } catch (error) {
             console.log(error)
+        }
+        finally{
+            setloadng(false)
         }
         
     }
@@ -87,7 +90,6 @@ export const SignUp = () => {
     return (
         <AnimatePresence>
             {
-                loadng ? (
                     <motion.div className="  flex-col items-center  flex  w-screen  min-h-[97.4vh] ronald justify-between items-end pt-[2.6rem] py-[1rem] overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -206,7 +208,7 @@ export const SignUp = () => {
                             errors  && <div className="font-urbanist text-red-400 tracking-[0.2px] text-center text-[3.3vw] m-[0vw]">{error}</div>
                         }
                         <button type="submit" className='flex flex-row  bg-[#0b66ff] w-[100%] h-[14vw] rounded-[12px] items-center justify-around'>
-                            Sign up
+                             {loadng ? <div>loading...</div>: <div>Sign up</div>}
                         </button>
                         <div className="flex flex-col text-center items-center justify-center gap-[5.6rem]">
                             <div className="flex flex-row items-center justify-center gap-[3vw] text-[3.6vw] m-[2vw]"> Already have an account? <div className="text-[#3783fd] text-[4vw]" onClick={navigateSignin}>Signin</div>
@@ -216,7 +218,6 @@ export const SignUp = () => {
                 </div>
                 <Footer />
             </motion.div>
-                ):(<Loading/>)
             }
         </AnimatePresence>
     )

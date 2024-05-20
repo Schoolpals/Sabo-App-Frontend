@@ -17,6 +17,7 @@ export const Verification = () => {
   const [mail, setmail] = useState("")
   const [error, seterror] = useState("")
   const [check, setcheck] = useState(false)
+  const [loading, setloading] = useState(false)
   const [buttons, setbuttons] = useState(false)
   const locations = useLocation()
   const handlOnchanege = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +38,7 @@ export const Verification = () => {
 
   const handleverification = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
+    setloading(true)
     try {
       const res = await fetch("https://sabo-app.onrender.com/auth/verify-email", {
         method: "POST",
@@ -48,6 +50,7 @@ export const Verification = () => {
       const result = await res.json()
       console.log(result)
       seterror(result)
+    
       if (!res.ok) {
         setcheck(true)
         setbuttons(true)
@@ -58,6 +61,9 @@ export const Verification = () => {
       }
     } catch (error) {
       console.log(error)
+    }
+    finally{
+      setloading(false)
     }
   }
 
@@ -147,9 +153,11 @@ export const Verification = () => {
             </div>
             <motion.button
               whileTap={{ scale: 1.05 }}
-              disabled={!buttons}
+              disabled={loading}
               type="submit" className={`flex flex-row   ${!buttons ? "bg-[#676D83]" : "bg-[#0b66ff]"} w-[93%] h-[14vw] rounded-[12px] items-center justify-around `}>
-              Verify
+                {
+                  loading ? <div>Sending...</div> : <div>Verify</div>
+                }
             </motion.button>
             {
               show && <Remark show={show} setshow={setshow} />
