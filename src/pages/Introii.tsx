@@ -10,7 +10,7 @@ export const Introii = () => {
     }
     return (
         <AnimatePresence>
-            <motion.div className='flex gap-[10vw] flex-col items-center   w-screen  min-h-[100vh] ronald justify-end items-end  overflow-hidden '
+            <motion.div className='flex gap-[10vw] flex-col items-center  relative top-[5.5vw]   w-screen  min-h-[97.3vh] ronald justify-end items-end  overflow-hidden '
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 0.6 } }}
                 exit={{ opacity: 0 }}
@@ -22,7 +22,7 @@ export const Introii = () => {
                         initial={{ y: -50, opacity: 0 }}
                         animate={{ y: 0, opacity: 1, transition: { duration: 0.6 } }}
                         exit={{ y: 50, opacity: 0 }}
-                        className='rounded-lg shadow-blue-inner w-[67vw] h-[80vw]'
+                        className='rounded-lg shadow-blue-inner w-[72vw] h-[80vw]'
                     />
                 </div>
                 <div className='relative top-[5.5vw] left-[3vw]  z-50 pr-[4vw]'>
@@ -32,7 +32,7 @@ export const Introii = () => {
                         exit={{ y: -50, opacity: 0 }}
                     />
                 </div>
-                <motion.div className=' gap-[9vw] bg-white text-customBlue radius2 w-[95vw] h-[90vw] rounded-t-[50px]  font-semibold  font-urbanist text-center p-[8vw] text-[5.5vw] flex flex-col relative z-20 shadow-inner-blueinner'
+                <motion.div className=' gap-[9vw] bg-white text-customBlue radius2 w-[95vw] h-[93.4vw] rounded-t-[50px]  font-semibold  font-urbanist text-center p-[8vw] text-[5.5vw] flex flex-col relative z-20 shadow-inner-blueinner'
                     initial={{ x: -100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1, transition: { duration: 0.6 } }}
                     exit={{ x: 100, opacity: 0 }}

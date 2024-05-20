@@ -39,7 +39,7 @@ export const CreatePin = () => {
 
 
   return (
-    <div className='min-h-[100vh] w-[88%] mx-auto text-white py-[23vw]  flex flex-col text-center items-center gap-[20vw]'>
+    <div className='min-h-[97.3vh] w-[88%] mx-auto text-white py-[23vw]  flex flex-col text-center items-center gap-[20vw]'>
       <div className='w-[50%] mx-auto flex flex-col text-center items-center'>
         <div className="h-[2.3vw] w-[26vw] border-none rounded-[7px] bg-[#0b66ff] "></div>
       </div>

@@ -8,19 +8,29 @@ import { Footer } from "./Footer";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { Loading } from "./Loading";
+import axios from "axios"
 
+interface  SignupProps {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    repeat_password: string
+}
 export const SignUp = () => {
     const user = useContext(Context)
     const locations = useLocation()
     const [mail, setmail] = useState("")
-    const [loadng, setloadng] = useState(false)
+    const [loadng, setloadng] = useState(true)
     const { formData } = user || {}
+    const [error, seterror] = useState("")
     useEffect(() => {
         console.log("this is location", locations)
     }, [locations])
     // const { firstName, lastName, email, password, repeat_password } = formData || {}
 
-    const handlesignup = async (data: valueprops) => {
+     
+    const handlesignup = async (data: SignupProps) => {
         setloadng(true)
         try {
             const res = await fetch("https://sabo-app.onrender.com/auth/sign-up", {
@@ -32,6 +42,8 @@ export const SignUp = () => {
             })
             const result = await res.json()
             console.log(result.email)
+            console.log(result.data.error)
+            seterror(result.data.error)
             setmail(result.email)
             console.log(result)
             if (!res.ok) {
@@ -43,19 +55,12 @@ export const SignUp = () => {
         }
         
     }
-    const { data,isFetching } = useQuery({
-        queryKey: ["signup"],
-        queryFn: () => handlesignup
-    })
-
-    if(isFetching){
-        <Loading/>
-    }
-    const mutation = useMutation({
-        mutationFn: (data: valueprops) => handlesignup(data),
-        onSuccess: () => {
-            navigate("verification");
-        },
+    // const {data} = useQuery({
+    //     queryKey: "verification",
+    //     queryFn: () => handlesignup
+    // })
+    const signupmutation = useMutation({
+        mutationFn: (data:SignupProps) => handlesignup(data),
     });
     const navigate = useNavigate()
     const handleGoback = () => {
@@ -77,22 +82,13 @@ export const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm<valueprops>()
     const onSubmit: SubmitHandler<valueprops> = (data) => {
         console.log(data)
-        handlesignup(data)
-    }
-    let confirmessage: React.ReactNode;
-    {
-        if (user?.error.includes("confirm")) {
-            confirmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] ease-in-out m-[1vw]">Password input must be filled</div>
-        }
-        else if (user?.error.includes("notconfirm")) {
-            confirmessage = <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] ease-in-out m-[1vw]">Password doesn't match your initial password </div>
-        }
+       signupmutation.mutate(data)
     }
     return (
         <AnimatePresence>
             {
                 loadng ? (
-                    <motion.div className="  flex-col items-center  flex  w-screen  min-h-[100vh] ronald justify-between items-end pt-[2.6rem] py-[1rem] overflow-hidden"
+                    <motion.div className="  flex-col items-center  flex  w-screen  min-h-[97.4vh] ronald justify-between items-end pt-[2.6rem] py-[1rem] overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 1 } }}
                 exit={{ opacity: 0 }}>
@@ -103,8 +99,8 @@ export const SignUp = () => {
                             <div className="text-block text-[25px] text-white">Create your Sabo <div className="relative -top-[1.5vw]">Account</div></div>
                         </div>
                     </div>
-                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[4vw] text-[white] my-[1.5rem]">
-                        <div className="">
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[5.5vw] text-[white] my-[1.5rem]">
+                        <div className="relative">
                             <input placeholder="First name"
                                 {...register("firstName", {
                                     required: "Firstname input is required",
@@ -115,9 +111,9 @@ export const SignUp = () => {
                                     }
 
                                 })}
-                                type="text" className="font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-80" />
+                                type="text" className="font-urbanist  border-none outline-none w-[100%] p-[4vw] text-white font-thin rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-80" />
                             {
-                                errors.firstName && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.firstName.message}</div>
+                                errors.firstName && <div className="font-urbanist  absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.firstName.message}</div>
                             }
                         </div>
                         <div className="">
@@ -132,7 +128,7 @@ export const SignUp = () => {
                                 })}
                                 type="text" className=" font-urbanist  outline-none w-[100%]  p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942]  placeholder-white placeholder-opacity-90" />
                             {
-                                errors.lastName && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]"> {errors.lastName.message}</div>
+                                errors.lastName && <div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]"> {errors.lastName.message}</div>
                             }
                         </div>
                         <div className="">
@@ -146,7 +142,7 @@ export const SignUp = () => {
                                     }
                                 })}
                                 className=" font-urbanist border-none outline-none w-[100%] p-[4vw] text-white font-thin  rounded-[12px] bg-[#0a1942] placeholder-white placeholder-opacity-90" />
-                            <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] ease-in-out m-[1vw]">{errors.email?.message}</div>
+                            <div className="font-urbanist text-red-400 absolute tracking-[0.2px] text-[3.3vw] ease-in-out m-[0vw]">{errors.email?.message}</div>
                         </div>
                         <div>
                             <div className="flex flex-row  bg-[#0a1942] w-[100%] h-[14vw] rounded-[12px] items-center justify-around">
@@ -159,24 +155,24 @@ export const SignUp = () => {
                                         },
                                         minLength: 8,
                                         maxLength: 22
-                                    })} type={show ? "text" : "password"} className="font-thin w-[75%] placeholder-white placeholder-opacity-90 border-none outline-none bg-transparent" />
+                                    })} type={show ? "text" : "password"} className="font-thin w-[75%]  placeholder-white placeholder-opacity-90 border-none outline-none bg-transparent" />
                                 <div>
                                     {show ? (<PiEyeLight onClick={handleclick} style={{ fontSize: "6vw" }} />) : (<PiEyeSlash onClick={handleclick} style={{ fontSize: "6vw" }} />)}
                                 </div>
 
                             </div>
                             {
-                                errors.password?.type === "pattern" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol.</div>
+                                errors.password?.type === "pattern" && <div className="font-urbanist absolutetext-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol.</div>
                             }
                             {
-                                errors.password?.type === "minLength" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password should be at-least 8 characters</div>
+                                errors.password?.type === "minLength" && <div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Password should be at-least 8 characters</div>
 
                             }
                             {
-                                errors.password?.type === "maxLength" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password must be at-most 22 Characters</div>
+                                errors.password?.type === "maxLength" && <div className="font-urbanist  absolutetext-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Password must be at-most 22 Characters</div>
                             }
                             {
-                                errors.password?.type === "required" && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">Password is required</div>
+                                errors.password?.type === "required" && <div className="font-urbanist absolute text-red-400 tracking-[0.2px] text-[3.3vw] m-[0vw]">Password is required</div>
                             }
                         </div>
                         <div>
@@ -196,7 +192,7 @@ export const SignUp = () => {
                                 </div>
                             </div>
                             {
-                                errors.repeat_password && <div className="font-urbanist text-red-400 tracking-[0.2px] text-[3.3vw] m-[1vw]">{errors.repeat_password.message}</div>
+                                errors.repeat_password && <div className="font-urbanist text-red-400  absolute tracking-[0.2px] text-[3.3vw] m-[0vw]">{errors.repeat_password.message}</div>
                             }
                         </div>
                         <div className="flex flex-row gap-[3vw] form-check items-center justify-center py-[3vw]">
@@ -206,6 +202,9 @@ export const SignUp = () => {
                                 <div className="text-semibold text-[4vw] font-urbanist">Remember me</div>
                             </div>
                         </div>
+                        {
+                            errors  && <div className="font-urbanist text-red-400 tracking-[0.2px] text-center text-[3.3vw] m-[0vw]">{error}</div>
+                        }
                         <button type="submit" className='flex flex-row  bg-[#0b66ff] w-[100%] h-[14vw] rounded-[12px] items-center justify-around'>
                             Sign up
                         </button>
@@ -222,5 +221,6 @@ export const SignUp = () => {
         </AnimatePresence>
     )
 }
+
 
 

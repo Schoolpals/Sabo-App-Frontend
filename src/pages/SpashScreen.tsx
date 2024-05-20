@@ -10,7 +10,7 @@ const SplashScreen = () => {
   }, [])
 
   return (
-    <div className="h-[100vh] text-white relative flex flex-col justify-between  items-center py-[1rem] ">
+    <div className="h-[100vh] text-white relative flex flex-col justify-center  items-center py-[1rem] ">
       {show && (
         <img
           src="assets/images/Group 289618.svg"

@@ -1,15 +1,23 @@
 import { motion } from 'framer-motion'
-import React, { useContext } from 'react'
-import { Context } from '../Provider/ContextApi'
+import React, { useContext, useEffect } from 'react'
+import { Context, valueprops } from '../Provider/ContextApi'
+import { useForm } from 'react-hook-form'
 type remarkprops = {
   show: boolean,
   setshow: (show: boolean) => void
+  handleclick: () => void
 }
-export const Emplymodal = ({ show, setshow }: remarkprops) => {
+export const Emplymodal = ({ show, setshow,handleclick }: remarkprops) => {
+  const handleSelect = (status: string) => {
+    setValue("employmentstatus", status);
+    handleclick();
+};
+
+
+  const { register, handleSubmit, setValue,watch, formState: { errors } } = useForm<valueprops>();
   const user = useContext(Context)
   const handleEmploymentStatusClick = (status: string) => {
     user?.setplaceholder(status);
-    setshow(false);
   };
   return (
     <motion.div
